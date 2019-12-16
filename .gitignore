@@ -27,3 +27,4 @@ db.sqlite3
 package-lock.json
 Pipfile.lock
 luster_shop/frontend/static/frontend/main.js
+luster_shop/media/*
