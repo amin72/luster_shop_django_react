@@ -21,8 +21,8 @@ class ProductAdmin(admin.ModelAdmin):
 
     fields = ['name', 'slug', 'description', 'image', 'price', 'quantity',
         'category', 'model', 'code', 'publish']
-    list_display = ['name', 'slug', 'price', 'quantity',
-        'category', 'model', 'code', 'publish']
+    list_display = ['name', 'slug', 'price', 'quantity', 'category', 'model',
+        'code', 'publish']
     list_filter = ['category', 'publish']
     search_fields = ['name', 'description']
     raw_id_fields = ['category']
