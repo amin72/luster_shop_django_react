@@ -9,6 +9,9 @@ urlpatterns = [
 
     # product urls
     path('products/', include('product.urls')),
+
+    # frontend urls
+    path('', include('frontend.urls')),
 ]
 
 if settings.DEBUG:
