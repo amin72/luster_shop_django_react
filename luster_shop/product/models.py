@@ -20,7 +20,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField(default='')
     image = models.ImageField(upload_to='product_images',
-        default='default.jpg')
+        default='product_images/default.jpg')
     price = models.FloatField(default=0)
     quantity = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
