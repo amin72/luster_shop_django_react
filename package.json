@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./luster_shop/frontend/src/index.js --output ./luster_shop/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch ./luster_shop/frontend/src/index.js --output ./luster_shop/frontend/static/frontend/main.js",
     "build": "webpack --mode production ./luster_shop/frontend/src/index.js --output ./luster_shop/frontend/static/frontend/main.js"
   },
   "repository": {
