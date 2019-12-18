@@ -1,0 +1,9 @@
+.product-name {
+    line-height: 1.5rem;
+    font-size: 1.1rem !important;
+    font-style: normal;
+}
+
+a {
+    color: #333;
+}
