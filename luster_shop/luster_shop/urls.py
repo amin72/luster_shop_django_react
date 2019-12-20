@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # product urls
-    path('products/', include('product.urls')),
+    path('api/products/', include('product.urls')),
 
     # frontend urls
     path('', include('frontend.urls')),
