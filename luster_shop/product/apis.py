@@ -2,7 +2,11 @@ from django.db.models import Q, CharField
 from django.db.models.functions import Lower
 from rest_framework import generics, permissions
 from .models import Category, Product
-from .serializers import CategorySerializer, ProductSerializer
+from .serializers import (
+    CategorySerializer,
+    ProductListSerializer,
+    ProductDetailSerializer,
+)
 from .pagination import ProductPageNumberPagination
 
 
@@ -13,7 +17,7 @@ CharField.register_lookup(Lower, "lower")
 
 class ProductListAPIView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = ProductSerializer
+    serializer_class = ProductListSerializer
     queryset = Product.objects.filter(publish=True)
     pagination_class = ProductPageNumberPagination
 
@@ -21,7 +25,7 @@ class ProductListAPIView(generics.ListAPIView):
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = ProductSerializer
+    serializer_class = ProductDetailSerializer
     queryset = Product.objects.filter(publish=True)
     lookup_field = 'slug'
 
@@ -29,7 +33,7 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
 
 class ProductListByCategoryAPIView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = ProductSerializer
+    serializer_class = ProductListSerializer
     pagination_class = ProductPageNumberPagination
 
     def get_queryset(self):
