@@ -18,9 +18,10 @@ class App extends Component {
                 <Router>
                     <Header />
                     <div className="container">
-                        <Switch >
-                            <Route path="/:slug" component={ProductDetail} />
+                        <Switch>
+                            <Route path="/products" render={props => <ProductList paginate={true} {...props} />} />
                             <Route exact path="/" component={ProductList} />
+                            <Route path="/:slug" component={ProductDetail} />
                         </Switch>
                     </div>
                 </Router>

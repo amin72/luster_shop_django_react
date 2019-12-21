@@ -4,8 +4,8 @@ import { GET_PRODUCTS, GET_PRODUCT } from './types'
 
 
 // get all products
-export const getProducts = () => dispatch => {
-    axios.get('/api/products/')
+export const getProducts = (param) => dispatch => {
+    axios.get(`/api/products/${param}`)
         .then(res => {
             dispatch({
                 type: GET_PRODUCTS,
