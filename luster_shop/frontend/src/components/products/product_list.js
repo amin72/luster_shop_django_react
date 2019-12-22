@@ -5,8 +5,15 @@ import { Link } from 'react-router-dom'
 
 import { getProducts } from '../../actions/products'
 
+import ReactPaginate from 'react-paginate'
+
 
 class ProductList extends Component {
+    state = {
+        currentPage: 1
+    }
+
+
     static propTypes = {
         products: PropTypes.object.isRequired,
         getProducts: PropTypes.func.isRequired,
@@ -25,9 +32,19 @@ class ProductList extends Component {
     }
 
 
+    handlePageClick = data => {
+        const currentPage = data.selected + 1
+
+        this.setState({ currentPage: currentPage }, () => {
+            const pagePraram = `?page=${currentPage}`
+            this.props.getProducts(pagePraram)
+        })
+    }
+
+
     render() {
         const products = this.props.products.results
-        
+
         return (
             <div className="row">
                 <h1>Product List</h1>
@@ -46,6 +63,30 @@ class ProductList extends Component {
                         )
                     ) : null
                 }
+
+                { this.props.paginate && products ? (
+                    <nav aria-label="Page navigation example">
+
+                    <ReactPaginate
+                        previousLabel={<span>&laquo;</span>}
+                        nextLabel={<span>&raquo;</span>}
+                        pageCount={this.props.products.count / this.props.pageSize}
+                        marginPagesDisplayed={3}
+                        pageRangeDisplayed={0}
+                        onPageChange={this.handlePageClick}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'page-link'}
+                        pageClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        activeClassName={'active'}
+                        previousClassName={'page-item'}
+                        previousLinkClassName={'page-link'}
+                        nextClassName={'page-item'}
+                        nextLinkClassName={'page-link'}
+                        />
+                        </nav>) : null
+                }
+
             </div>
         )
     }
