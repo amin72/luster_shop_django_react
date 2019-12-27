@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { USER_LOADED, USER_LOADING, AUTH_ERROR } from './types'
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } from './types'
 
 
 // Check token and load user
@@ -33,6 +33,35 @@ export const loadUser = () => (dispatch, getState) => {
             console.log(err)
             dispatch({
                 type: AUTH_ERROR
+            })
+        })
+}
+
+
+
+// Login user
+export const login = (username, password) => dispatch => {
+    // Headers
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    // Request body
+    const body = JSON.stringify({ username, password })
+
+    axios.post('/api/auth/login/', body, config)
+        .then(res => {
+            dispatch({ 
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch({
+                type: LOGIN_FAIL
             })
         })
 }
