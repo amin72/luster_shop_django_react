@@ -10,6 +10,9 @@ import Header from './layouts/header'
 import ProductList from './products/product_list'
 import ProductDetail from './products/product_detail'
 
+import Login from './accounts/login'
+import Register from './accounts/register'
+
 
 class App extends Component {
     render() {
@@ -19,6 +22,9 @@ class App extends Component {
                     <Header />
                     <div className="container">
                         <Switch>
+                            <Route exact path="/login" component={Login} />} />
+                            <Route exact path="/register" component={Register} />} />
+                            
                             <Route path="/products" render={props => <ProductList paginate={true} pageSize={10} {...props} />} />
                             <Route exact path="/" component={ProductList} />
                             <Route path="/:slug" component={ProductDetail} />
