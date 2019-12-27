@@ -12,6 +12,9 @@ urlpatterns = [
 
     # frontend urls
     path('', include('frontend.urls')),
+    
+    # account urls
+    path('api/auth/', include('account.urls')),
 ]
 
 if settings.DEBUG:
