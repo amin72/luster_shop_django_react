@@ -12,9 +12,14 @@ import ProductDetail from './products/product_detail'
 
 import Login from './accounts/login'
 import Register from './accounts/register'
+import { loadUser } from '../actions/auth'
 
 
 class App extends Component {
+    componentDidMount() {
+        store.dispatch(loadUser())
+    }
+
     render() {
         return (
             <Provider store={store}>
