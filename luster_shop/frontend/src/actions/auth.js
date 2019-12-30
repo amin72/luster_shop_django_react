@@ -18,22 +18,7 @@ export const loadUser = () => (dispatch, getState) => {
     // User loading
     dispatch({ type: USER_LOADING })
 
-    // Get token from state
-    const token = getState().auth.token
-
-    // Headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    // If token, add to headers config
-    if (token) {
-        config.headers['Authorization'] = `Token ${token}`
-    }
-
-    axios.get('/api/auth/user/', config)
+    axios.get('/api/auth/user/', tokenConfig(getState))
         .then(res => {
             dispatch({ 
                 type: USER_LOADED,
@@ -42,6 +27,9 @@ export const loadUser = () => (dispatch, getState) => {
         })
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.state))
+            dispatch({
+                type: AUTH_ERROR
+            })
         })
 }
 
@@ -79,22 +67,7 @@ export const login = (username, password) => dispatch => {
 
 // Logout user
 export const logout = () => (dispatch, getState) => {
-    // Get token from state
-    const token = getState().auth.token
-
-    // Headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    // If token, add to headers config
-    if (token) {
-        config.headers['Authorization'] = `Token ${token}`
-    }
-    
-    axios.post('/api/auth/logout/', null, config)
+    axios.post('/api/auth/logout/', null, tokenConfig(getState))
         .then(res => {
             dispatch({ 
                 type: LOGOUT_SUCCESS,
@@ -139,4 +112,26 @@ export const register = ({ username, email, password }) => dispatch => {
             })
         })
 
+}
+
+
+
+// Setup config with token - helper function
+export const tokenConfig = getState => {
+    // Get token from state
+    const token = getState().auth.token
+
+    // Headers
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    // If token, add to headers config
+    if (token) {
+        config.headers['Authorization'] = `Token ${token}`
+    }
+
+    return config
 }
