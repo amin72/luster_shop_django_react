@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { register } from '../../actions/auth'
 import auth from '../../reducers/auth'
+import store from '../../store'
+import { createMessage } from '../../actions/messages'
 
 
 class Register extends Component {
@@ -32,7 +34,8 @@ class Register extends Component {
         const { username, email, password, password2 } = this.state
 
         if (password !== password2) {
-            console.log('passowrd do not match!')
+            this.props.createMessage({ passwordNotMatch: 'Passwords do not match'})
+
         } else {
             const newUser = { username, email, password }
             this.props.register(newUser)
@@ -118,4 +121,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, { register }) (Register)
+export default connect(mapStateToProps, { register, createMessage }) (Register)
