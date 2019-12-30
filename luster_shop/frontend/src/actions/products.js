@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { GET_PRODUCTS, GET_PRODUCT } from './types'
+import { returnErrors } from './messages'
 
 
 // get all products
@@ -12,7 +13,9 @@ export const getProducts = (param) => dispatch => {
                 payload: res.data
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.state))
+        })
 }
 
 
@@ -25,5 +28,7 @@ export const getProduct = (product_slug) => dispatch => {
                 payload: res.data
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.state))
+        })
 }
