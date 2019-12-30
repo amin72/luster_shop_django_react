@@ -10,6 +10,8 @@ import {
     REGISTER_FAIL
 } from './types'
 
+import { returnErrors, createMessage } from './messages'
+
 
 // Check token and load user
 export const loadUser = () => (dispatch, getState) => {
@@ -39,7 +41,7 @@ export const loadUser = () => (dispatch, getState) => {
             })
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnErrors(err.response.data, err.response.state))
         })
 }
 
@@ -63,9 +65,10 @@ export const login = (username, password) => dispatch => {
                 type: LOGIN_SUCCESS,
                 payload: res.data
             })
+            dispatch(createMessage({ userLoggedIn: "You are logged in into your account!" }))
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnErrors(err.response.data, err.response.state))
             dispatch({
                 type: LOGIN_FAIL
             })
@@ -97,9 +100,10 @@ export const logout = () => (dispatch, getState) => {
                 type: LOGOUT_SUCCESS,
                 payload: res.data
             })
+            dispatch(createMessage({ userLoggedOut: "You are logged out from your account!" }))
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnErrors(err.response.data, err.response.state))
             dispatch({
                 type: LOGIN_FAIL
             })
@@ -126,11 +130,13 @@ export const register = ({ username, email, password }) => dispatch => {
                 type: REGISTER_SUCCESS,
                 payload: res.data
             })
+            dispatch(createMessage({ accountCreated: "Your account was created successfully!" }))
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnErrors(err.response.data, err.response.state))
             dispatch({
                 type: REGISTER_FAIL
             })
         })
+
 }
