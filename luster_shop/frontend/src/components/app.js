@@ -14,6 +14,8 @@ import Login from './accounts/login'
 import Register from './accounts/register'
 import { loadUser } from '../actions/auth'
 
+import { loadCart } from '../actions/products'
+
 import { Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import Alerts from './layouts/alert'
@@ -31,6 +33,7 @@ const alertOptions = {
 class App extends Component {
     componentDidMount() {
         store.dispatch(loadUser())
+        store.dispatch(loadCart())
     }
 
 

@@ -44,9 +44,22 @@ class ProductList extends Component {
 
     render() {
         const products = this.props.products.results
+        const cart = this.props.cart
 
         return (
             <div className="row">
+                <h1>Cart Items</h1>
+                <ul className="list-group">
+                {
+                    cart.map(product => (
+                        <li
+                            key={product.slug}
+                            className="list-group-item">{ product.name } {product.units}
+                        </li>
+                    ))
+                }
+                </ul>
+
                 <h1>Product List</h1>
                 { products ?
                     products.map(product => (
@@ -86,7 +99,6 @@ class ProductList extends Component {
                         />
                         </nav>) : null
                 }
-
             </div>
         )
     }
@@ -94,7 +106,8 @@ class ProductList extends Component {
 
 
 const mapStateToProps = state => ({
-    products: state.products.products
+    products: state.products.products,
+    cart: state.products.cart,
 })
 
 

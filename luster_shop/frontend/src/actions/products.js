@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { GET_PRODUCTS, GET_PRODUCT } from './types'
+import { GET_PRODUCTS, GET_PRODUCT, ADD_TO_CART, LOAD_CART } from './types'
 import { returnErrors } from './messages'
 
 
@@ -31,4 +31,23 @@ export const getProduct = (product_slug) => dispatch => {
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.state))
         })
+}
+
+
+
+// add product to cart
+export const addToCart = (product) => dispatch => {
+    dispatch({
+        type: ADD_TO_CART,
+        payload: product
+    })
+}
+
+
+
+// load cart
+export const loadCart = () => dispatch => {
+    dispatch({
+        type: LOAD_CART
+    })
 }
