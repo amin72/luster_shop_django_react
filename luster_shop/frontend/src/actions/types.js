@@ -14,5 +14,6 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS"
 export const CREATE_MESSAGE = "CREATE_MESSAGE"
 export const GET_ERRORS = "GET_ERRORS"
 
-export const ADD_TO_CART = "ADD_TO_CART";
-export const LOAD_CART = "LOAD_CART";
+export const ADD_TO_CART = "ADD_TO_CART"
+export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART"
+export const LOAD_CART = "LOAD_CART"

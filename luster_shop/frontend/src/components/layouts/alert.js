@@ -60,6 +60,14 @@ class Alerts extends Component {
             if (message.userLoggedIn) {
                 alert.success(message.userLoggedIn)
             }
+
+            if (message.itemAddedToCart) {
+                alert.success(message.itemAddedToCart)
+            }
+
+            if (message.itemRemovedFromCart) {
+                alert.info(message.itemRemovedFromCart)
+            }
         }
     }
 

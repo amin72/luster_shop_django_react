@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import { getProducts } from '../../actions/products'
+import { getProducts, removeItemFromCart } from '../../actions/products'
 
 import ReactPaginate from 'react-paginate'
 
@@ -54,7 +54,7 @@ class ProductList extends Component {
                     cart.map(product => (
                         <li
                             key={product.slug}
-                            className="list-group-item">{ product.name } {product.units}
+                            className="list-group-item">{ product.name } {product.units} <a onClick={() => this.props.removeItemFromCart(product.slug)} className="btn btn-danger btn-sm">Remove</a>
                         </li>
                     ))
                 }
@@ -111,4 +111,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { getProducts }) (ProductList)
+export default connect(mapStateToProps, { getProducts, removeItemFromCart }) (ProductList)

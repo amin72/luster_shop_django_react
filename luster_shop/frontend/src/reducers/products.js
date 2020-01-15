@@ -2,7 +2,8 @@ import {
     GET_PRODUCTS,
     GET_PRODUCT,
     ADD_TO_CART,
-    LOAD_CART
+    LOAD_CART,
+    REMOVE_ITEM_FROM_CART
 } from '../actions/types'
 
 
@@ -12,16 +13,44 @@ const initialState = {
 }
 
 
+
+// load cart from local storage
+const loadCartFromLocalStorage = () => {
+    const cartStored = localStorage.getItem('cart')
+    const cartParsed = JSON.parse(cartStored)
+    return cartParsed ? cartParsed : []
+}
+
+
+
+// save cart to local storage
+export const saveCartToLocalStorage = (cart) => {
+    const storedCart = JSON.stringify(cart)
+    localStorage.setItem('cart', storedCart)
+}
+
+
+
 export default (state=initialState, action) => {
     switch (action.type) {
         case LOAD_CART:
-            const cartStored = localStorage.getItem('cart')
-            const cartParsed = JSON.parse(cartStored)
-            const loadedCart = cartParsed ? cartParsed : []
+            let loadedCart = loadCartFromLocalStorage()
             
             return {
                 ...state,
                 cart: loadedCart
+            }
+
+        case REMOVE_ITEM_FROM_CART:
+            loadedCart = loadCartFromLocalStorage()
+            const productSlug = action.payload
+
+            const updatedCart = loadedCart.filter(product => product.slug !== productSlug)
+            saveCartToLocalStorage(updatedCart)
+
+            return {
+                ...state,
+                cart: [...updatedCart]
             }
 
         case GET_PRODUCTS:
@@ -72,8 +101,7 @@ export default (state=initialState, action) => {
             }
 
             // store cart in local storage
-            const storedCart = JSON.stringify(result.cart)
-            localStorage.setItem('cart', storedCart)
+            saveCartToLocalStorage(result.cart)
             return result
         
         default:
