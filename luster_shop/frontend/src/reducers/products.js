@@ -69,28 +69,20 @@ export default (state=initialState, action) => {
             const product = action.payload
             const cart = state.cart
             let result;
-    
+
             const existingProduct = cart.filter(p => p.slug === product.slug)
-    
+
             if (existingProduct.length > 0) {
+                let productUnits = existingProduct[0].units
+                productUnits = productUnits ? productUnits + 1 : 1
+                existingProduct[0].units = productUnits
+
                 const withoutExistingProduct = cart.filter(p =>
                     p.slug !== product.slug)
-
-                // initialize units if not set
-                let existingProductUnits = existingProduct[0].units
-                let productUnits = product.units
-                
-                existingProductUnits = existingProductUnits ? existingProductUnits : 1
-                productUnits = productUnits ? productUnits : 0
-
-                const updatedUnitsProduct = {
-                    ...existingProduct[0],
-                    units: existingProductUnits + productUnits
-                }
     
                 result = {
                     ...state,
-                    cart: [...withoutExistingProduct, updatedUnitsProduct]
+                    cart: [...withoutExistingProduct, ...existingProduct[0]]
                 }
             } else {
                 product.units = 1
