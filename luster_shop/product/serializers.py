@@ -28,6 +28,8 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
+    quantity = serializers.SerializerMethodField()
+    MAX_QUANTITY = 3
 
     class Meta:
         model = Product
@@ -40,4 +42,11 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             'category',
             'model',
             'code',
+            'quantity',
         ]
+
+    def get_quantity(self, obj):
+        quantity = obj.quantity
+        if quantity >= self.MAX_QUANTITY:
+            quantity = self.MAX_QUANTITY
+        return quantity
