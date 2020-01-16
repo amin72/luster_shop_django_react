@@ -34,6 +34,14 @@ class Alerts extends Component {
             if (error.msg.username) {
                 alert.error(error.msg.username.join())
             }
+            
+            if (error.msg.cantAddMoreItems) {
+                alert.error(error.msg.cantAddMoreItems)
+            }
+
+            if (error.msg.itemNotAvailable) {
+                alert.error(error.msg.itemNotAvailable)
+            }
         }
 
         if (message != prevProps.message) {

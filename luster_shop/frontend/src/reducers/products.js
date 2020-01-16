@@ -15,7 +15,7 @@ const initialState = {
 
 
 // load cart from local storage
-const loadCartFromLocalStorage = () => {
+export const loadCartFromLocalStorage = () => {
     const cartStored = localStorage.getItem('cart')
     const cartParsed = JSON.parse(cartStored)
     return cartParsed ? cartParsed : []
@@ -82,7 +82,7 @@ export default (state=initialState, action) => {
     
                 result = {
                     ...state,
-                    cart: [...withoutExistingProduct, ...existingProduct[0]]
+                    cart: [...withoutExistingProduct, existingProduct[0]]
                 }
             } else {
                 product.units = 1
